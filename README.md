@@ -8,7 +8,7 @@ Claude Code 에서 Confluence 를 CLI 로 연동하는 플러그인입니다.
 
 ## 의존성
 
-- [confluence-cli](https://github.com/bjlee2024/confluence-cli) (`npm install -g confluence-cli`)
+- [@bjlee2024/confluence-cli](https://github.com/bjlee2024/confluence-cli) (`npm install -g confluence-cli`)
 
 ## 설치
 
