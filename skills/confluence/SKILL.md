@@ -1,16 +1,8 @@
 ---
 name: confluence
 description: Confluence 페이지 읽기, 검색, 생성, 수정, 삭제 등 모든 작업을 수행합니다. confluence-cli 를 사용합니다.
-triggers:
-  - "confluence"
-  - "컨플루언스"
-  - "confluence 페이지"
-  - "confluence page"
-  - "confluence 검색"
-  - "confluence search"
-  - "confluence 생성"
-  - "confluence 수정"
-  - "confluence 삭제"
+user-invocable: true
+when_to_use: "confluence, 컨플루언스, confluence 페이지, confluence page, confluence 검색, confluence search, confluence 생성, confluence 수정, confluence 삭제"
 ---
 
 # Confluence 작업 스킬

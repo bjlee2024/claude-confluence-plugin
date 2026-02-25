@@ -1,13 +1,8 @@
 ---
 name: confluence-init
 description: Confluence CLI 초기 설정. confluence-cli 설치 확인 및 인증 설정을 진행합니다.
-triggers:
-  - "confluence init"
-  - "confluence 설정"
-  - "confluence 세팅"
-  - "confluence setup"
-  - "컨플루언스 설정"
-  - "컨플루언스 초기화"
+user-invocable: true
+when_to_use: "confluence init, confluence 설정, confluence 세팅, confluence setup, 컨플루언스 설정, 컨플루언스 초기화"
 ---
 
 # Confluence CLI 초기 설정
