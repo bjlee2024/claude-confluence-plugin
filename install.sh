@@ -27,14 +27,15 @@ else
 fi
 
 # --- 1. Skills ---
-mkdir -p "$SKILLS_DEST"
-cp "$SKILLS_DIR/confluence-init.md" "$SKILLS_DEST/"
-cp "$SKILLS_DIR/confluence.md" "$SKILLS_DEST/"
+mkdir -p "$SKILLS_DEST/confluence-init"
+mkdir -p "$SKILLS_DEST/confluence"
+cp "$SKILLS_DIR/confluence-init/SKILL.md" "$SKILLS_DEST/confluence-init/"
+cp "$SKILLS_DIR/confluence/SKILL.md" "$SKILLS_DEST/confluence/"
 
 echo ""
 echo "Installed skills:"
-echo "  - $SKILLS_DEST/confluence-init.md"
-echo "  - $SKILLS_DEST/confluence.md"
+echo "  - $SKILLS_DEST/confluence-init/SKILL.md"
+echo "  - $SKILLS_DEST/confluence/SKILL.md"
 
 # --- 2. Hooks ---
 SETTINGS_DIR="$(dirname "$SETTINGS_FILE")"

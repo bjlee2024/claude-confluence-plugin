@@ -1,6 +1,6 @@
 {
   "name": "claude-confluence-plugin",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Confluence CLI 연동 플러그인. confluence-cli 를 통해 페이지 읽기, 검색, 생성, 수정, 삭제를 수행합니다. 생성/수정/삭제 시 반드시 사용자 확인을 요구하는 헌법을 포함합니다.",
   "author": {
     "name": "bjlee"
