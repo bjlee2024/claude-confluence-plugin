@@ -9,7 +9,7 @@
     {
       "name": "claude-atlassian-plugin",
       "description": "Atlassian (Confluence + Jira) CLI integration. Manages Confluence pages and Jira issues with constitution hooks that enforce user confirmation before any create/update/delete operations.",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "author": {
         "name": "bjlee"
       },
