@@ -1,6 +1,6 @@
 {
   "name": "claude-atlassian-plugin",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Atlassian (Confluence + Jira) CLI 연동 플러그인. confluence-cli 와 jira-cli 를 통해 Confluence 페이지 및 Jira 이슈를 관리합니다. 생성/수정/삭제 시 반드시 사용자 확인을 요구하는 헌법을 포함합니다.",
   "author": {
     "name": "bjlee"
