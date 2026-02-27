@@ -2,7 +2,7 @@
 
 > 테스트 일자: 2026-02-25
 > 대상 환경: meditcompany.atlassian.net
-> 테스트 도구: confluence-cli v1.x (npm), Atlassian MCP (plugin, claude.ai)
+> 테스트 도구: confluence-cli v1.20.1 (npm), Atlassian MCP (plugin, claude.ai)
 
 ---
 

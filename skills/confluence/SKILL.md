@@ -7,7 +7,7 @@ when_to_use: "confluence, 컨플루언스, confluence 페이지, confluence page
 
 # Confluence 작업 스킬
 
-`confluence-cli` (https://github.com/pchuri/confluence-cli) 를 사용하여 Confluence 작업을 수행합니다.
+`confluence-cli` (https://github.com/bjlee2024/confluence-cli) 를 사용하여 Confluence 작업을 수행합니다.
 
 ---
 
@@ -111,26 +111,74 @@ confluence info <pageId>
 
 ### 검색
 
+> **검색 전략**: Confluence 검색은 `--cql` 플래그를 사용한 CQL 검색을 우선 사용합니다.
+> CQL은 스페이스, 제목, 라벨, 날짜, 기여자 등 다양한 조건을 조합할 수 있어 정확하고 효율적입니다.
+> 단순 키워드 검색(`search`, `find`)은 결과가 부정확하거나 불필요한 항목이 포함될 수 있으므로 보조적으로 사용합니다.
+
+#### CQL 검색 (권장 — `--cql` 플래그 필수)
+
 ```bash
-# 제목으로 검색
+# 스페이스 내 모든 페이지
+confluence search --cql "space=<SPACEKEY> AND type=page" --limit 20
+
+# 정확한 제목 검색
+confluence search --cql "title=\"<exact title>\"" --limit 5
+
+# 제목 부분 일치 (fuzzy)
+confluence search --cql "title~\"<keyword>\"" --limit 10
+
+# 스페이스 + 제목 조합
+confluence search --cql "space=<SPACEKEY> AND title~\"<keyword>\"" --limit 10
+
+# 라벨 기반 검색
+confluence search --cql "label=\"<label>\" AND type=page" --limit 10
+
+# 기여자 기반 검색
+confluence search --cql "contributor=\"<username>\" AND type=page" --limit 10
+
+# 날짜 범위 검색 (최근 수정)
+confluence search --cql "lastModified>now(\"-7d\") AND type=page" --limit 20
+
+# 복합 조건
+confluence search --cql "space=<SPACEKEY> AND title~\"<keyword>\" AND label=\"<label>\"" --limit 10
+```
+
+#### CQL 주요 필드 참조
+
+| 필드 | 설명 | 예시 |
+|------|------|------|
+| `space` | 스페이스 키 | `space=DEV` |
+| `title` | 정확한 제목 | `title="회의록"` |
+| `title~` | 제목 부분 일치 | `title~"설계"` |
+| `text~` | 본문 내용 검색 | `text~"API 엔드포인트"` |
+| `label` | 라벨 | `label="architecture"` |
+| `type` | 콘텐츠 타입 | `type=page`, `type=blogpost` |
+| `contributor` | 기여자 | `contributor="user@email.com"` |
+| `creator` | 생성자 | `creator="user@email.com"` |
+| `lastModified` | 수정일 | `lastModified>now("-30d")` |
+| `created` | 생성일 | `created>"2025-01-01"` |
+| `ancestor` | 상위 페이지 하위 전체 | `ancestor=<pageId>` |
+| `parent` | 직계 부모 | `parent=<pageId>` |
+
+#### 단순 검색 (보조용)
+
+```bash
+# 제목으로 검색 (페이지만 검색, space 이름 매칭 시 에러 + CQL 안내)
 confluence find "<title>"
 confluence find "<title>" --space <SPACEKEY>
 
-# 텍스트 검색 (키워드 기반)
+# 텍스트 검색 (키워드 기반, 결과 정확도 낮음)
 confluence search "<query>"
 confluence search "<query>" --limit 10
+```
 
-# CQL 검색 (반드시 --cql 플래그 필요)
-confluence search --cql "space=<SPACEKEY>" --limit 10
-confluence search --cql "space=<SPACEKEY> AND type=page" --limit 20
-confluence search --cql "title=\"<exact title>\"" --limit 5
-confluence search --cql "space=<SPACEKEY> AND title~\"<keyword>\"" --limit 10
-confluence search --cql "label=\"<label>\" AND type=page" --limit 10
+#### 스페이스 / 하위 페이지 조회
 
-# 스페이스 목록
+```bash
+# 스페이스 목록 (자동 페이지네이션으로 전체 목록 반환)
 confluence spaces
 
-# 하위 페이지
+# 하위 페이지 (자동 페이지네이션으로 전체 목록 반환)
 confluence children <pageId>
 confluence children <pageId> --recursive --format tree
 confluence children <pageId> --recursive --max-depth 3 --show-id --show-url
@@ -138,6 +186,8 @@ confluence children <pageId> --recursive --max-depth 3 --show-id --show-url
 
 > **주의**: `--cql` 플래그 없이 CQL 문법을 사용하면 텍스트 검색으로 처리되어 의도한 결과가 나오지 않습니다.
 > `title=`은 페이지 제목만 검색합니다. 스페이스 이름은 `space=<KEY>`로 검색하세요.
+
+> **참고 (v1.20.0+)**: `confluence find`로 검색 시 스페이스 이름이 매칭되면 `ID: undefined` 대신 명확한 에러 메시지와 함께 CQL 검색 안내가 표시됩니다. 이 경우 `confluence search --cql "title=\"<제목>\""` 을 사용하세요.
 
 ### 페이지 생성 (확인 필수)
 
@@ -398,7 +448,8 @@ confluence update <pageId> --file /tmp/page-storage-fixed.html --format storage
 
 ### 검색 후 정보 수집
 
-1. `confluence search "<keyword>"` 로 관련 페이지 검색
+1. `confluence search --cql "space=<SPACEKEY> AND title~\"<keyword>\"" --limit 10` 으로 CQL 검색 (권장)
+   - 스페이스를 모르는 경우: `confluence search --cql "title~\"<keyword>\" AND type=page" --limit 10`
 2. `confluence read <pageId> --format markdown` 로 각 페이지 확인
 3. 필요시 `confluence children <pageId> --recursive --format tree` 로 구조 파악
 
