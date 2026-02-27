@@ -27,20 +27,17 @@ else
 fi
 
 # --- 1. Skills ---
-mkdir -p "$SKILLS_DEST/confluence-init"
+mkdir -p "$SKILLS_DEST/atlassian-init"
 mkdir -p "$SKILLS_DEST/confluence"
-mkdir -p "$SKILLS_DEST/jira-init"
 mkdir -p "$SKILLS_DEST/jira"
-cp "$SKILLS_DIR/confluence-init/SKILL.md" "$SKILLS_DEST/confluence-init/"
+cp "$SKILLS_DIR/atlassian-init/SKILL.md" "$SKILLS_DEST/atlassian-init/"
 cp "$SKILLS_DIR/confluence/SKILL.md" "$SKILLS_DEST/confluence/"
-cp "$SKILLS_DIR/jira-init/SKILL.md" "$SKILLS_DEST/jira-init/"
 cp "$SKILLS_DIR/jira/SKILL.md" "$SKILLS_DEST/jira/"
 
 echo ""
 echo "Installed skills:"
-echo "  - $SKILLS_DEST/confluence-init/SKILL.md"
+echo "  - $SKILLS_DEST/atlassian-init/SKILL.md"
 echo "  - $SKILLS_DEST/confluence/SKILL.md"
-echo "  - $SKILLS_DEST/jira-init/SKILL.md"
 echo "  - $SKILLS_DEST/jira/SKILL.md"
 
 # --- 2. Hooks ---
@@ -104,16 +101,15 @@ fi
 # --- 3. Check CLI tools ---
 echo ""
 echo "Available commands:"
-echo "  /confluence-init  - Confluence CLI setup"
+echo "  /atlassian-init   - Confluence + Jira CLI setup"
 echo "  /confluence       - Confluence operations"
-echo "  /jira-init        - Jira CLI setup"
 echo "  /jira             - Jira operations"
 echo ""
 
 if ! command -v confluence &>/dev/null; then
     echo "[!] confluence-cli is not installed."
     echo "    Run: npm install -g @bjlee2024/confluence-cli"
-    echo "    Or use /confluence-init in Claude Code to set up."
+    echo "    Or use /atlassian-init in Claude Code to set up."
 else
     echo "[OK] confluence-cli is installed: $(which confluence)"
 fi
@@ -121,7 +117,7 @@ fi
 if ! command -v jira &>/dev/null; then
     echo "[!] jira-cli is not installed."
     echo "    Run: brew install ankitpokhrel/tap/jira-cli"
-    echo "    Or use /jira-init in Claude Code to set up."
+    echo "    Or use /atlassian-init in Claude Code to set up."
 else
     echo "[OK] jira-cli is installed: $(which jira)"
 fi

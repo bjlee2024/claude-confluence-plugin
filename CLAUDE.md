@@ -4,9 +4,8 @@ Confluence CLI (`confluence-cli`) + Jira CLI (`jira-cli`) 연동 플러그인입
 
 ## 사용 가능한 스킬
 
-- `/confluence-init` — Confluence CLI 설치 및 인증 설정
+- `/atlassian-init` — Confluence CLI + Jira CLI 통합 설치 및 인증 설정
 - `/confluence` — Confluence 페이지 읽기, 검색, 생성, 수정, 삭제
-- `/jira-init` — Jira CLI 설치 및 인증 설정
 - `/jira` — Jira 이슈 조회, 생성, 수정, 삭제, 스프린트/에픽/보드 관리
 
 ## 헌법 (Constitution) - 절대 규칙

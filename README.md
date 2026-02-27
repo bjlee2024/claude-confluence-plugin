@@ -37,12 +37,11 @@ go install github.com/ankitpokhrel/jira-cli/cmd/jira@latest  # Go 1.21+
 ### 초기 설정
 
 ```
-/confluence-init    # Confluence CLI 설치 및 인증 설정
-/jira-init          # Jira CLI 설치 및 인증 설정
+/atlassian-init    # Confluence + Jira CLI 통합 설치 및 인증 설정
 ```
 
-> **참고**: Confluence 와 Jira 는 동일한 Atlassian API 토큰을 사용할 수 있습니다.
-> https://id.atlassian.com/manage/api-tokens 에서 토큰을 생성하세요.
+동일한 Atlassian API 토큰으로 Confluence 와 Jira 를 한 번에 설정합니다.
+토큰은 https://id.atlassian.com/manage/api-tokens 에서 생성하세요.
 
 ### Confluence 작업
 
